@@ -1,0 +1,9 @@
+{
+  "name": "tisheng",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy --keep-vars"
+  }
+}

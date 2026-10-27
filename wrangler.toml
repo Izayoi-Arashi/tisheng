@@ -1,0 +1,20 @@
+name = "tisheng"
+main = "src/worker.js"
+compatibility_date = "2025-08-01"
+workers_dev = true
+preview_urls = true
+
+[triggers]
+crons = ["0 3 * * *"] # 每日 03:00 UTC 清理闲置账号（连续 60 天无活动）
+
+[assets]
+directory = "./public"
+not_found_handling = "single-page-application"
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+# 先执行 npx wrangler kv namespace create ACA_QUIZ_KV 创建 KV，把输出的 id 回填到下方（详见 README「部署」一节）
+binding = "ACA_QUIZ_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
