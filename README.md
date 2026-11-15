@@ -81,6 +81,10 @@ npx wrangler login
 
 内置 `src/bank.js` 只是 3 道通用示例题 + 1 个示例模块，用于保证引擎开箱可运行。字段格式、判分语义、纠错表以及云备份与本地导入的关系见 **[docs/bank-format.md](docs/bank-format.md)**。
 
+## 维护状态
+
+本项目为个人自用刷题工具，**不承诺固定维护频率**：功能迭代视个人备考与使用需要不定期进行，Bug 修复以「影响自用」为准，可能数周无更新。欢迎按 [docs/bank-format.md](docs/bank-format.md) 的题库格式导入自用；Issue 与 PR 会看，但不保证及时回复，请勿预期长期支持。
+
 ## License
 
 [MIT](./LICENSE)
