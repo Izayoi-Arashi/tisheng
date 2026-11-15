@@ -690,12 +690,12 @@ async function handle(request, { env, kv, secret, url, path, ip, ctx }) {
     for (const d of body.d) {
       const qi = parseInt(d.i, 10);
       if (!Number.isInteger(qi) || (d.r !== 0 && d.r !== 1)) continue;
+      const dayOk = typeof d.day === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d.day);
+      if (dayOk) p.d[d.day] = (p.d[d.day] || 0) + 1; // 每日答题数按作答计（对齐客户端：答错也计入打卡/统计）
       if (d.r) {
         const prevW = !!(p.q[qi] && p.q[qi].s === "w");
         const confirmed = p.q[qi] && (p.q[qi].s === "m" || (p.q[qi].s === "l" && now - p.q[qi].t >= gap));
         p.q[qi] = { s: confirmed ? "m" : "l", t: now };
-        const day = typeof d.day === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d.day) ? d.day : null;
-        if (day) p.d[day] = (p.d[day] || 0) + 1;
         if (prevW) p.wf = (p.wf || 0) + 1; // 攻克一道此前答错的题（扫地僧成就口径）
       } else {
         p.q[qi] = { s: "w", t: now };
