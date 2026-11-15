@@ -505,6 +505,8 @@ async function loadCloudBank(activate = true) {
 }
 
 // 把本地题库上传为云备份题库，并切换到云端
+// 上传成功后移除本机副本：云备份是迁移不是复制，留下的同名本地题库会让后续作答
+// 继续走本地判分（数据不出设备），表现为「答题记录和进度不上传云端」。
 async function promoteToCloud(localId) {
   const lb = getLocalBank(localId);
   if (!lb) throw new Error("本地题库不存在");
@@ -512,6 +514,7 @@ async function promoteToCloud(localId) {
     method: "PUT",
     body: { bank: { name: lb.name, questions: lb.questions }, progress: loadProg(localId) },
   });
+  removeLocalBank(localId);
   localStorage.setItem("ts_last", "cloud");
   S.bank = null;
   S.progress = { q: {}, d: {} };
